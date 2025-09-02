@@ -115,7 +115,7 @@ impl ViewTemplate for SwatchGrid {
         let num_colors = self.colors.len().min(num_cells);
         let padding_len = num_cells - num_colors;
 
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .named("SwatchGrid")
             .style((
                 style_swatch_grid,
@@ -138,7 +138,7 @@ impl ViewTemplate for SwatchGrid {
                 }),
                 // Pad with empty cells
                 For::each(0..padding_len, move |_| {
-                    Element::<NodeBundle>::new().style(style_empty_slot)
+                    Element::<Node>::new().style(style_empty_slot)
                 }),
             ))
     }

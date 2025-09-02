@@ -71,7 +71,7 @@ impl ViewTemplate for SrgbaInspector {
             FieldLabel {
                 field: self.0.clone(),
             },
-            Element::<NodeBundle>::new().style(style_field).children((
+            Element::<Node>::new().style(style_field).children((
                 Swatch::new(value).style(style_swatch),
                 value.to_hex(),
                 Spacer,

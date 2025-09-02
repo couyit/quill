@@ -33,7 +33,7 @@ fn style_vsplitter(ss: &mut StyleBuilder) {
         .gap(8)
         .width(9)
         .background_color(colors::U1)
-        .cursor(CursorIcon::ColResize);
+        .cursor(SystemCursorIcon::ColResize);
 }
 
 // The decorative handle inside the splitter.
@@ -52,7 +52,7 @@ fn style_hsplitter(ss: &mut StyleBuilder) {
         .gap(8)
         .height(9)
         .background_color(colors::U2)
-        .cursor(CursorIcon::RowResize);
+        .cursor(SystemCursorIcon::RowResize);
 }
 
 // The decorative handle inside the splitter.
@@ -136,7 +136,7 @@ impl ViewTemplate for Splitter {
             });
         }
 
-        Element::<NodeBundle>::for_entity(id)
+        Element::<Node>::for_entity(id)
             .named("Splitter")
             .style(style_splitter)
             .insert_dyn(SplitterValue, self.value)
@@ -191,7 +191,7 @@ impl ViewTemplate for Splitter {
                 (),
             )
             .children(
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .style(style_splitter_inner)
                     .style_dyn(
                         move |(is_hovering, dragging), sb| {

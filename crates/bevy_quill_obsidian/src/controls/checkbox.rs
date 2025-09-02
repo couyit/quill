@@ -1,13 +1,4 @@
-use bevy::{
-    a11y::{
-        accesskit::{NodeBuilder, Role},
-        AccessibilityNode, Focus,
-    },
-    color::Luminance,
-    prelude::*,
-    ui,
-};
-use bevy_mod_picking::{events::PointerCancel, prelude::*};
+use bevy::{a11y::AccessibilityNode, color::Luminance, prelude::*, ui, window::SystemCursorIcon};
 use bevy_mod_stylebuilder::*;
 use bevy_quill_core::*;
 
@@ -36,7 +27,7 @@ fn style_checkbox_border(ss: &mut StyleBuilder) {
         .width(16)
         .height(16)
         .border_radius(3.0)
-        .cursor(CursorIcon::Pointer);
+        .cursor(SystemCursorIcon::Pointer);
 }
 
 fn style_checkbox_inner(ss: &mut StyleBuilder) {
@@ -138,7 +129,7 @@ impl ViewTemplate for Checkbox {
         let checked = self.checked;
         let on_change = self.on_change;
 
-        Element::<NodeBundle>::for_entity(id)
+        Element::<Node>::for_entity(id)
             .named("Checkbox")
             .style((typography::text_default, style_checkbox, self.style.clone()))
             .insert_dyn(TabIndex, self.tab_index)
@@ -209,7 +200,7 @@ impl ViewTemplate for Checkbox {
                 (),
             )
             .children((
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .named("Checkbox::Border")
                     .style(style_checkbox_border)
                     .style_dyn(
@@ -241,10 +232,10 @@ impl ViewTemplate for Checkbox {
                     .children(Cond::new(
                         checked,
                         // (),
-                        Element::<NodeBundle>::new().style(style_checkbox_inner),
+                        Element::<Node>::new().style(style_checkbox_inner),
                         (),
                     )),
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .style(style_checkbox_label)
                     .style_dyn(
                         |disabled, sb| {

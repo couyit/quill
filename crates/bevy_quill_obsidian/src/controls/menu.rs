@@ -209,7 +209,7 @@ impl ViewTemplate for MenuButton {
             open.set(world, false);
         }));
 
-        Element::<NodeBundle>::for_entity(id_anchor)
+        Element::<Node>::for_entity(id_anchor)
             .named("MenuButton")
             .style((
                 typography::text_default,
@@ -279,7 +279,7 @@ impl ViewTemplate for MenuButton {
             .insert_if(self.autofocus, || AutoFocus)
             .insert_if(self.disabled, || Disabled)
             .children((
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .named("MenuButton::Background")
                     .style(style_button_bg)
                     .insert(corners.to_border_radius(self.size.border_radius()))
@@ -322,7 +322,7 @@ impl ViewTemplate for MenuButton {
                     state != BistableTransitionState::Exited,
                     {
                         Portal::new(
-                            Element::<NodeBundle>::new()
+                            Element::<Node>::new()
                                 .style(style_menu_barrier)
                                 .insert_dyn(
                                     move |_| {
@@ -434,7 +434,7 @@ impl ViewTemplate for MenuPopup {
         let context = cx.use_inherited_component::<MenuAnchor>().unwrap();
         let owner_id = cx.owner();
 
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .named("MenuPopup")
             .style((typography::text_default, style_popup, self.style.clone()))
             .insert(TabGroup {
@@ -601,7 +601,7 @@ impl ViewTemplate for MenuItem {
         let focused = cx.is_focused(id);
         let on_click = self.on_click;
 
-        Element::<NodeBundle>::for_entity(id)
+        Element::<Node>::for_entity(id)
             .named("MenuItem")
             .insert_if(self.disabled, || Disabled)
             .style((style_menu_item, self.style.clone()))
@@ -704,7 +704,7 @@ pub struct MenuDivider;
 impl ViewTemplate for MenuDivider {
     type View = impl View;
     fn create(&self, _cx: &mut Cx) -> Self::View {
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .named("MenuDivider")
             .style(style_menu_divider)
     }

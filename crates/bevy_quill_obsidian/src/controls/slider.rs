@@ -39,7 +39,7 @@ fn style_overlay(ss: &mut StyleBuilder) {
         .top(0)
         .bottom(0)
         .right(0)
-        .cursor(CursorIcon::ColResize);
+        .cursor(SystemCursorIcon::ColResize);
 }
 
 fn style_label(ss: &mut StyleBuilder) {
@@ -252,7 +252,7 @@ impl ViewTemplate for Slider {
             });
         }
 
-        Element::<MaterialNodeBundle<SliderRectMaterial>>::for_entity(slider_id)
+        Element::<MaterialNode<SliderRectMaterial>>::for_entity(slider_id)
             .style((style_slider, self.style.clone()))
             .insert(material.clone())
             .insert_dyn(
@@ -362,7 +362,7 @@ impl ViewTemplate for Slider {
                 },
                 (self.min, self.max, self.value, material.clone()),
             )
-            .children((Element::<NodeBundle>::new()
+            .children((Element::<Node>::new()
                 .named("Slider")
                 .style(style_overlay)
                 .children((
@@ -378,7 +378,7 @@ impl ViewTemplate for Slider {
                         .on_click(dec_click),
                         (),
                     ),
-                    Element::<NodeBundle>::new().style(style_label).children((
+                    Element::<Node>::new().style(style_label).children((
                         Cond::new(
                             self.label.is_some(),
                             (self.label.clone().unwrap_or_default(), Spacer),

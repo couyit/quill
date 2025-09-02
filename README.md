@@ -56,7 +56,7 @@ impl ViewTempate for MyWidget {
     fn create(cx: &mut Cx) -> Self::View {
         // Access data in a resource
         let counter = cx.use_resource::<Counter>();
-        Element::<NodeBundle>::new().children((
+        Element::<Node>::new().children((
             format!("The count is: {}", counter.count),
         ))
     }
@@ -143,7 +143,7 @@ relations.
 Children and effects are added using a builder pattern, as in the following example:
 
 ```rust
-Element::<NodeBundle>::new()
+Element::<Node>::new()
     .style(style_panel)
     .children((
         "Hello, ",
@@ -458,7 +458,7 @@ fn style_button(ss: &mut StyleBuilder) {
         .padding((12, 0))
         .border(0)
         .color(colors::FOREGROUND)
-        .cursor(CursorIcon::Pointer);
+        .cursor(SystemCursorIcon::Pointer);
 }
 ```
 

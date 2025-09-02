@@ -26,7 +26,7 @@ fn style_toggle(ss: &mut StyleBuilder) {
         .align_items(ui::AlignItems::Center)
         .align_content(ui::AlignContent::Center)
         .color(colors::FOREGROUND)
-        .cursor(CursorIcon::Pointer);
+        .cursor(SystemCursorIcon::Pointer);
 }
 
 /// A widget which displays small toggleable chevron that can be used to control whether
@@ -112,7 +112,7 @@ impl ViewTemplate for DisclosureToggle {
         let focused = cx.is_focus_visible(id);
         let on_change = self.on_change;
 
-        Element::<NodeBundle>::for_entity(id)
+        Element::<Node>::for_entity(id)
             .named("DisclosureToggle")
             .style((style_toggle, self.style.clone()))
             .insert((

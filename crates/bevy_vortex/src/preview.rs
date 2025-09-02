@@ -57,7 +57,7 @@ impl ViewTemplate for PreviewControls {
     type View = impl View;
 
     fn create(&self, _cx: &mut bevy_quill::Cx) -> Self::View {
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .style(style_preview_controls)
             .children((
                 PreviewModeButtons,

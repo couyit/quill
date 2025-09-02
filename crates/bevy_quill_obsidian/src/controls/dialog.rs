@@ -150,7 +150,7 @@ impl ViewTemplate for Dialog {
         Cond::new(
             state != BistableTransitionState::Exited,
             Portal::new(
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .named("Dialog::Overlay")
                     .style(style_dialog_overlay)
                     .insert_dyn(
@@ -204,7 +204,7 @@ impl ViewTemplate for Dialog {
                         state,
                     )
                     .children(
-                        Element::<NodeBundle>::new()
+                        Element::<Node>::new()
                             .insert(TabGroup {
                                 order: 0,
                                 modal: true,
@@ -288,7 +288,7 @@ impl DialogHeader {
 impl ViewTemplate for DialogHeader {
     type View = impl View;
     fn create(&self, _cx: &mut Cx) -> Self::View {
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .style(style_dialog_header)
             .children(self.children.clone())
     }
@@ -325,7 +325,7 @@ impl DialogBody {
 impl ViewTemplate for DialogBody {
     type View = impl View;
     fn create(&self, _cx: &mut Cx) -> Self::View {
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .style(style_dialog_body)
             .children(self.children.clone())
     }
@@ -365,7 +365,7 @@ impl DialogFooter {
 impl ViewTemplate for DialogFooter {
     type View = impl View;
     fn create(&self, _cx: &mut Cx) -> Self::View {
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .style(style_dialog_footer)
             .children(self.children.clone())
     }

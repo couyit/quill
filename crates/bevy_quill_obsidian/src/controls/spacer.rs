@@ -14,6 +14,6 @@ impl ViewTemplate for Spacer {
     type View = impl View;
 
     fn create(&self, _cx: &mut Cx) -> Self::View {
-        Element::<NodeBundle>::new().style(style_spacer)
+        Element::<Node>::new().style(style_spacer)
     }
 }

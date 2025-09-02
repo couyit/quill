@@ -370,7 +370,7 @@ impl ViewTemplate for SelectionRectView {
             drag_state
                 .selection_rect
                 .map(|rect| {
-                    Element::<NodeBundle>::new()
+                    Element::<Node>::new()
                         .style(style_selection_rect)
                         .style_dyn(
                             |rect, sb| {

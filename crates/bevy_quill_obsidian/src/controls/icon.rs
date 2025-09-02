@@ -65,7 +65,7 @@ impl ViewTemplate for Icon {
         let icon = self.icon.clone();
         let size = self.size;
 
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .style((
                 move |sb: &mut StyleBuilder| {
                     sb.width(size.x).height(size.y).background_image(&icon);

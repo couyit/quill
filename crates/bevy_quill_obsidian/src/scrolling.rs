@@ -1,5 +1,10 @@
-use bevy::{input::mouse::MouseWheel, prelude::*, render::view::visibility, ui};
-use bevy_mod_picking::{focus::HoverMap, pointer::PointerId, prelude::EntityEvent};
+use bevy::{
+    input::mouse::MouseWheel,
+    picking::{hover::HoverMap, pointer::PointerId},
+    prelude::*,
+    render::view::visibility,
+    ui,
+};
 
 /// Mouse wheel entity event
 #[derive(Clone, Event, EntityEvent, Debug)]
@@ -91,11 +96,11 @@ pub struct ScrollBarThumb;
 pub(crate) fn update_scroll_positions(
     mut query: Query<(&Node, &mut ScrollArea, &GlobalTransform, &Children)>,
     mut query_content: Query<
-        (&Node, &mut Style, &GlobalTransform),
+        (&Node, &mut Node, &GlobalTransform),
         (Without<ScrollArea>, Without<ScrollBarThumb>),
     >,
     query_scrollbar: Query<(&ScrollBar, &Children)>,
-    mut query_scrollbar_thumb: Query<(&mut Style, &mut Visibility), With<ScrollBarThumb>>,
+    mut query_scrollbar_thumb: Query<(&mut Node, &mut Visibility), With<ScrollBarThumb>>,
 ) {
     for (node, mut scrolling, gt, children) in query.iter_mut() {
         // Measure size and update scroll width and height

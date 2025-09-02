@@ -21,7 +21,7 @@ fn style_button(ss: &mut StyleBuilder) {
         .padding((12, 0))
         .border(0)
         .color(colors::FOREGROUND)
-        .cursor(CursorIcon::Pointer);
+        .cursor(SystemCursorIcon::Pointer);
 }
 ```
 

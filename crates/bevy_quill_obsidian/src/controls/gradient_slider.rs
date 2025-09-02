@@ -284,7 +284,7 @@ impl ViewTemplate for GradientSlider {
             });
         }
 
-        Element::<NodeBundle>::for_entity(slider_id)
+        Element::<Node>::for_entity(slider_id)
             .named("GradientSlider")
             .style((style_slider, self.style.clone()))
             .insert_dyn(
@@ -384,14 +384,14 @@ impl ViewTemplate for GradientSlider {
                 (),
             )
             .children((
-                Element::<MaterialNodeBundle<GradientRectMaterial>>::new()
+                Element::<MaterialNode<GradientRectMaterial>>::new()
                     .insert(gradient_material.clone())
                     .style(style_gradient),
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .named("GradientSlider::Track")
                     .style(style_track)
                     .children(
-                        Element::<NodeBundle>::new()
+                        Element::<Node>::new()
                             .named("GradientSlider::Thumb")
                             .style(style_thumb)
                             .style_dyn(

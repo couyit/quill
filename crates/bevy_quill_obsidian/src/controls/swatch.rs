@@ -107,7 +107,7 @@ impl ViewTemplate for Swatch {
             (material.clone(), self.color),
         );
 
-        Element::<MaterialNodeBundle<SwatchRectMaterial>>::new()
+        Element::<MaterialNode<SwatchRectMaterial>>::new()
             .named("Swatch")
             .style((style_swatch, self.style.clone()))
             .insert_dyn(|m| m, material.clone())
@@ -138,7 +138,7 @@ impl ViewTemplate for Swatch {
             )
             .children(Cond::new(
                 selected,
-                Element::<NodeBundle>::new().style(style_selection),
+                Element::<Node>::new().style(style_selection),
                 (),
             ))
     }

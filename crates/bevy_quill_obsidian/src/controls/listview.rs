@@ -5,7 +5,7 @@ use bevy::{
     },
     color::{Alpha, Srgba},
     prelude::*,
-    ui::{self, node_bundles::NodeBundle},
+    ui::{self, node_bundles::Node},
 };
 use bevy_mod_picking::prelude::*;
 use bevy_mod_stylebuilder::*;
@@ -70,7 +70,7 @@ impl ViewTemplate for ListView {
     fn create(&self, _cx: &mut Cx) -> Self::View {
         ScrollView::new()
             .children(
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .named("ListView")
                     .insert(AccessibilityNode::from(NodeBuilder::new(Role::ListBox)))
                     .style(style_listview_inner)
@@ -149,7 +149,7 @@ impl<K: PartialEq + Clone + Send + Sync + 'static> ViewTemplate for ListRow<K> {
 
         // TODO: Disabled
 
-        Element::<NodeBundle>::for_entity(id)
+        Element::<Node>::for_entity(id)
             .named("ListRow")
             .insert(TabIndex(0))
             .children(self.children.clone())

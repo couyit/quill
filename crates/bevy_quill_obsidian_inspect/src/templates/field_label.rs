@@ -44,7 +44,7 @@ impl ViewTemplate for FieldLabel {
         let remove = cx.create_callback(move |world: &mut World| {
             field.remove(world);
         });
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .style((typography::text_default, style_field_label))
             .children((
                 name,
@@ -122,7 +122,7 @@ impl ViewTemplate for FieldLabelWide {
         let remove = cx.create_callback(move |world: &mut World| {
             field.remove(world);
         });
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .style((typography::text_default, style_field_label_wide))
             .children((
                 self.name.clone(),

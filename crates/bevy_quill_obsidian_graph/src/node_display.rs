@@ -40,7 +40,7 @@ fn style_node_graph_node_title(ss: &mut StyleBuilder) {
         })
         .background_color(colors::Y_GREEN.darker(0.05))
         .padding((6, 2))
-        .cursor(CursorIcon::Grab);
+        .cursor(SystemCursorIcon::Grab);
 }
 
 fn style_node_graph_node_content(ss: &mut StyleBuilder) {
@@ -162,7 +162,7 @@ impl ViewTemplate for NodeDisplay {
         let hovering = cx.is_hovered(display_id);
         let rect = cx.use_element_rect(display_id);
 
-        Element::<NodeBundle>::for_entity(display_id)
+        Element::<Node>::for_entity(display_id)
             .named("NodeGraph::Node")
             .style(style_node_graph_node)
             .insert_dyn(move |_| node_event_handlers(display_id, node_id), ())
@@ -179,10 +179,10 @@ impl ViewTemplate for NodeDisplay {
                 (position, rect.size().mul(0.5).as_ivec2()),
             )
             .children((
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .named("NodeGraph::Node::Shadow")
                     .style(style_node_graph_node_shadow),
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .named("NodeGraph::Node::Title")
                     .style(style_node_graph_node_title)
                     .style_dyn(
@@ -197,7 +197,7 @@ impl ViewTemplate for NodeDisplay {
                     )
                     .insert_dyn(move |_| title_event_handlers(display_id), ())
                     .children(self.title.clone()),
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .style(style_node_graph_node_content)
                     .style_dyn(
                         |selected, sb| {
@@ -218,7 +218,7 @@ impl ViewTemplate for NodeDisplay {
                     .children(self.children.clone()),
                 Cond::new(
                     hovering,
-                    Element::<NodeBundle>::new()
+                    Element::<Node>::new()
                         .named("NodeGraph::Node::Outline")
                         .style(style_node_graph_node_outline),
                     (),

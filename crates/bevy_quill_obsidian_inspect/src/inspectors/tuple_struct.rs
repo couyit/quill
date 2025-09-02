@@ -3,7 +3,7 @@ use std::sync::Arc;
 use bevy::{
     prelude::{In, World},
     reflect::{OffsetAccess, ReflectRef},
-    ui::{self, node_bundles::NodeBundle},
+    ui::{self, node_bundles::Node},
 };
 use bevy_mod_stylebuilder::*;
 use bevy_quill_core::*;
@@ -61,7 +61,7 @@ impl ViewTemplate for NestedTupleStruct {
                 {
                     let field = self.0.clone();
                     {
-                        Element::<NodeBundle>::new()
+                        Element::<Node>::new()
                             .style(style_field_list)
                             .children(TupleStructElements(field.clone()))
                     }
@@ -114,7 +114,7 @@ impl ViewTemplate for TupleStructElements {
             }
         }
 
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .style(style_field_list)
             .children(For::each(0..length, move |index| {
                 let mut path = field.value_path.clone();

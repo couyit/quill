@@ -154,7 +154,7 @@ impl ViewTemplate for VortexUi {
         cx.insert(GraphViewId(graph_view_id));
         cx.insert(DragState::default());
 
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .named("Main")
             .style((typography::text_default, style_main))
             .insert_dyn(
@@ -177,7 +177,7 @@ impl ViewTemplate for VortexUi {
                 (),
             )
             .children((
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .named("ControlPalette")
                     .style(style_aside)
                     .style_dyn(
@@ -190,7 +190,7 @@ impl ViewTemplate for VortexUi {
                         AddNodeButton,
                         CatalogView,
                         PreviewControls,
-                        Element::<NodeBundle>::new()
+                        Element::<Node>::new()
                             .named("Preview")
                             .style(style_viewport)
                             .style_dyn(
@@ -226,7 +226,7 @@ struct CenterPanel;
 impl ViewTemplate for CenterPanel {
     type View = impl View;
     fn create(&self, _cx: &mut Cx) -> Self::View {
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .insert_dyn(
                 |_| {
                     On::<GraphEvent>::run(

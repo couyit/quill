@@ -47,7 +47,7 @@ impl FieldReadonlyValue {
 impl ViewTemplate for FieldReadonlyValue {
     type View = impl View;
     fn create(&self, _cx: &mut Cx) -> Self::View {
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .style((
                 typography::text_default,
                 style_field_readonly_value,

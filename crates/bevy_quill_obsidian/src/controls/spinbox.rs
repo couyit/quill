@@ -36,7 +36,7 @@ fn style_overlay(ss: &mut StyleBuilder) {
         .top(0)
         .bottom(0)
         .right(0)
-        .cursor(CursorIcon::ColResize);
+        .cursor(SystemCursorIcon::ColResize);
 }
 
 fn style_spinbox_label(ss: &mut StyleBuilder) {
@@ -226,7 +226,7 @@ impl ViewTemplate for SpinBox {
             });
         }
 
-        Element::<NodeBundle>::for_entity(spinbox_id)
+        Element::<Node>::for_entity(spinbox_id)
             .style((style_spinbox, self.style.clone()))
             .insert_dyn(
                 |(value, min, max, precision, step)| SpinBoxState {
@@ -238,7 +238,7 @@ impl ViewTemplate for SpinBox {
                 },
                 (self.value, self.min, self.max, self.precision, self.step),
             )
-            .children((Element::<NodeBundle>::new()
+            .children((Element::<Node>::new()
                 .named("SpinBox")
                 .style(style_overlay)
                 .children((
@@ -254,7 +254,7 @@ impl ViewTemplate for SpinBox {
                         .on_click(dec_click),
                         (),
                     ),
-                    Element::<NodeBundle>::new()
+                    Element::<Node>::new()
                         .style(style_spinbox_label)
                         .insert_dyn(
                             move |_| {

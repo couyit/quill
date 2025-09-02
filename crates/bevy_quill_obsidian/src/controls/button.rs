@@ -7,16 +7,7 @@ use crate::{
     size::Size,
     typography, RoundedCorners,
 };
-use bevy::{
-    a11y::{
-        accesskit::{NodeBuilder, Role},
-        AccessibilityNode, Focus,
-    },
-    color::Luminance,
-    prelude::*,
-    ui,
-};
-use bevy_mod_picking::{events::PointerCancel, prelude::*};
+use bevy::{a11y::AccessibilityNode, color::Luminance, prelude::*, ui, winit::cursor::SystemCursorIcon};
 use bevy_mod_stylebuilder::*;
 use bevy_quill_core::{
     Callback, Cx, Element, IntoViewChild, RunCallback, View, ViewChild, ViewTemplate,
@@ -49,7 +40,7 @@ pub(crate) fn style_button(ss: &mut StyleBuilder) {
         .padding((12, 0))
         .border(0)
         .color(colors::FOREGROUND)
-        .cursor(CursorIcon::Pointer);
+        .cursor(SystemCursorIcon::Pointer);
 }
 
 pub(crate) fn style_button_bg(ss: &mut StyleBuilder) {
@@ -189,7 +180,7 @@ impl ViewTemplate for Button {
         let size = self.size;
         let on_click = self.on_click;
 
-        Element::<NodeBundle>::for_entity(id)
+        Element::<Node>::for_entity(id)
             .named("Button")
             .style((
                 typography::text_default,
@@ -286,7 +277,7 @@ impl ViewTemplate for Button {
                 (),
             )
             .children((
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .named("Button::Background")
                     .style(style_button_bg)
                     .insert_dyn(

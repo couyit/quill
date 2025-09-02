@@ -1,7 +1,7 @@
 use bevy::{
     prelude::*,
     reflect::TypeInfo,
-    ui::{self, node_bundles::NodeBundle},
+    ui::{self, node_bundles::Node},
 };
 use bevy_mod_picking::prelude::*;
 use bevy_mod_stylebuilder::*;
@@ -93,7 +93,7 @@ impl ViewTemplate for CatalogRow {
         let selected = cx.use_resource::<SelectedCatalogEntry>();
         let is_selected = Some(self.0.path) == selected.0;
         let path = self.0.path;
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .style(style_catalog_row)
             .style_dyn(
                 |selected, sb| {
@@ -122,10 +122,10 @@ impl ViewTemplate for CatalogRow {
                 (),
             )
             .children((
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .style(style_catalog_operator_class)
                     .children(self.0.category.to_local_string()),
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .style((text_strong, style_catalog_operator_name))
                     .children(self.0.display_name),
             ))

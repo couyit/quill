@@ -161,7 +161,7 @@ impl ViewTemplate for ListElementsInspector {
     fn create(&self, _cx: &mut Cx) -> Self::View {
         let field = self.field.clone();
         let length = self.length;
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .style(style_list_items)
             .children(
                 For::each(0..length, move |index| {
@@ -181,7 +181,7 @@ impl ViewTemplate for ListElementsInspector {
                     ListItemInspector { field: access }
                 })
                 .with_fallback(
-                    Element::<NodeBundle>::new()
+                    Element::<Node>::new()
                         .style(style_empty_list)
                         .children("(empty list)"),
                 ),

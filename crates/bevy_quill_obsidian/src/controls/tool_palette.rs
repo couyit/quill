@@ -80,7 +80,7 @@ impl ViewTemplate for ToolPalette {
 
         cx.insert(ToolPaletteContext { size: self.size });
 
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .named("ToolPalette")
             .style((
                 style_tool_palette,

@@ -3,7 +3,7 @@ use bevy::{
     ecs::system::Resource,
     math::UVec2,
     prelude::{In, World},
-    ui::{self, node_bundles::NodeBundle},
+    ui::{self, node_bundles::Node},
 };
 use bevy_mod_stylebuilder::*;
 use bevy_quill_core::*;
@@ -186,55 +186,53 @@ impl ViewTemplate for ColorEdit {
         let on_change = self.on_change;
         let state_capture = cx.create_capture(state);
 
-        Element::<NodeBundle>::new().style(style_grid).children((
-            Element::<NodeBundle>::new().style(style_top_row).children((
+        Element::<Node>::new().style(style_grid).children((
+            Element::<Node>::new().style(style_top_row).children((
                 Swatch::new(state.rgb).style(style_swatch),
-                Element::<NodeBundle>::new()
-                    .style(style_mode_selector)
-                    .children((
-                        Button::new()
-                            .children("RGB")
-                            .corners(RoundedCorners::Left)
-                            .variant(if mode == ColorMode::Rgb {
-                                ButtonVariant::Selected
-                            } else {
-                                ButtonVariant::Default
-                            })
-                            .on_click(cx.create_callback(move |world: &mut World| {
-                                world.run_callback(
-                                    on_change,
-                                    state_capture.get(world).set_mode(ColorMode::Rgb),
-                                );
-                            })),
-                        Button::new()
-                            .children("HSL")
-                            .corners(RoundedCorners::None)
-                            .variant(if mode == ColorMode::Hsl {
-                                ButtonVariant::Selected
-                            } else {
-                                ButtonVariant::Default
-                            })
-                            .on_click(cx.create_callback(move |world: &mut World| {
-                                world.run_callback(
-                                    on_change,
-                                    state_capture.get(world).set_mode(ColorMode::Hsl),
-                                );
-                            })),
-                        Button::new()
-                            .children("Recent")
-                            .corners(RoundedCorners::Right)
-                            .variant(if mode == ColorMode::Recent {
-                                ButtonVariant::Selected
-                            } else {
-                                ButtonVariant::Default
-                            })
-                            .on_click(cx.create_callback(move |world: &mut World| {
-                                world.run_callback(
-                                    on_change,
-                                    state_capture.get(world).set_mode(ColorMode::Recent),
-                                );
-                            })),
-                    )),
+                Element::<Node>::new().style(style_mode_selector).children((
+                    Button::new()
+                        .children("RGB")
+                        .corners(RoundedCorners::Left)
+                        .variant(if mode == ColorMode::Rgb {
+                            ButtonVariant::Selected
+                        } else {
+                            ButtonVariant::Default
+                        })
+                        .on_click(cx.create_callback(move |world: &mut World| {
+                            world.run_callback(
+                                on_change,
+                                state_capture.get(world).set_mode(ColorMode::Rgb),
+                            );
+                        })),
+                    Button::new()
+                        .children("HSL")
+                        .corners(RoundedCorners::None)
+                        .variant(if mode == ColorMode::Hsl {
+                            ButtonVariant::Selected
+                        } else {
+                            ButtonVariant::Default
+                        })
+                        .on_click(cx.create_callback(move |world: &mut World| {
+                            world.run_callback(
+                                on_change,
+                                state_capture.get(world).set_mode(ColorMode::Hsl),
+                            );
+                        })),
+                    Button::new()
+                        .children("Recent")
+                        .corners(RoundedCorners::Right)
+                        .variant(if mode == ColorMode::Recent {
+                            ButtonVariant::Selected
+                        } else {
+                            ButtonVariant::Default
+                        })
+                        .on_click(cx.create_callback(move |world: &mut World| {
+                            world.run_callback(
+                                on_change,
+                                state_capture.get(world).set_mode(ColorMode::Recent),
+                            );
+                        })),
+                )),
             )),
             Cond::new(
                 mode == ColorMode::Rgb,
@@ -277,7 +275,7 @@ impl ViewTemplate for RgbSliders {
         let rgb = state.get(cx).rgb;
         let on_change = self.on_change;
 
-        Element::<NodeBundle>::new().style(style_sliders).children((
+        Element::<Node>::new().style(style_sliders).children((
             GradientSlider::new()
                 .gradient(ColorGradient::new(&[
                     Srgba::new(0.0, rgb.green, rgb.blue, 1.0),
@@ -293,7 +291,7 @@ impl ViewTemplate for RgbSliders {
                         world.run_callback(on_change, state.get(world).set_red(*value / 255.0));
                     }),
                 ),
-            Element::<NodeBundle>::new()
+            Element::<Node>::new()
                 .style(style_numeric_input)
                 .children(format!("{:.0}", rgb.red * 255.0)),
             GradientSlider::new()
@@ -311,7 +309,7 @@ impl ViewTemplate for RgbSliders {
                         world.run_callback(on_change, state.get(world).set_green(*value / 255.0));
                     }),
                 ),
-            Element::<NodeBundle>::new()
+            Element::<Node>::new()
                 .style(style_numeric_input)
                 .children(format!("{:.0}", rgb.green * 255.0)),
             GradientSlider::new()
@@ -329,7 +327,7 @@ impl ViewTemplate for RgbSliders {
                         world.run_callback(on_change, state.get(world).set_blue(*value / 255.0));
                     }),
                 ),
-            Element::<NodeBundle>::new()
+            Element::<Node>::new()
                 .style(style_numeric_input)
                 .children(format!("{:.0}", rgb.blue * 255.0)),
             AlphaSlider { state, on_change },
@@ -350,7 +348,7 @@ impl ViewTemplate for HslSliders {
         let hsl = state.get(cx).hsl;
         let on_change = self.on_change;
 
-        Element::<NodeBundle>::new().style(style_sliders).children((
+        Element::<Node>::new().style(style_sliders).children((
             GradientSlider::new()
                 .gradient(ColorGradient::new(&[
                     Srgba::from(Hsla::new(0.0, 1.0, 0.5, 1.0)),
@@ -371,7 +369,7 @@ impl ViewTemplate for HslSliders {
                         world.run_callback(on_change, state.get(world).set_hue(*value));
                     }),
                 ),
-            Element::<NodeBundle>::new()
+            Element::<Node>::new()
                 .style(style_numeric_input)
                 .children(format!("{:.0}", hsl.hue)),
             GradientSlider::new()
@@ -393,7 +391,7 @@ impl ViewTemplate for HslSliders {
                         );
                     }),
                 ),
-            Element::<NodeBundle>::new()
+            Element::<Node>::new()
                 .style(style_numeric_input)
                 .children(format!("{:.0}", hsl.saturation * 100.0)),
             GradientSlider::new()
@@ -415,7 +413,7 @@ impl ViewTemplate for HslSliders {
                         );
                     }),
                 ),
-            Element::<NodeBundle>::new()
+            Element::<Node>::new()
                 .style(style_numeric_input)
                 .children(format!("{:.0}", hsl.lightness * 100.0)),
             AlphaSlider { state, on_change },
@@ -452,7 +450,7 @@ impl ViewTemplate for AlphaSlider {
                         world.run_callback(on_change, state.get(world).set_alpha(*value / 255.0));
                     }),
                 ),
-            Element::<NodeBundle>::new()
+            Element::<Node>::new()
                 .style(style_numeric_input)
                 .children(format!("{:.0}", rgb.alpha * 255.0)),
         )

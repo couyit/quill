@@ -4,7 +4,7 @@ use bevy::{
     math::Vec3,
     prelude::{In, World},
     reflect::Reflect,
-    ui::{self, node_bundles::NodeBundle},
+    ui::{self, node_bundles::Node},
 };
 use bevy_mod_stylebuilder::*;
 use bevy_quill_core::*;
@@ -72,7 +72,7 @@ impl ViewTemplate for Vec3FieldInspector {
             },
             // Don't need `Cond` here because condition is not reactive; reflection data
             // is constant.
-            Element::<NodeBundle>::new()
+            Element::<Node>::new()
                 .style(style_spinbox_group)
                 .children((
                     // "x",

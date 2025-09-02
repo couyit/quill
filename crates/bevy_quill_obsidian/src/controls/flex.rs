@@ -58,7 +58,7 @@ impl ViewTemplate for Flex {
     type View = impl View;
 
     fn create(&self, _cx: &mut Cx) -> Self::View {
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .style(self.style.clone())
             .children(self.children.clone())
     }

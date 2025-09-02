@@ -9,6 +9,5 @@ keywords = ["bevy", "ui", "reactive", "widgets"]
 
 [dependencies]
 bevy = { workspace = true }
-bevy_mod_picking = { workspace = true }
 bevy_mod_stylebuilder = { workspace = true }
 bevy_quill_core = { workspace = true }

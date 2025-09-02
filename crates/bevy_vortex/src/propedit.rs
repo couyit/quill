@@ -38,7 +38,7 @@ impl ViewTemplate for GraphNodePropertyEdit {
             "f32" | "i32" | "glam::Vec2" | "glam::Vec3" | "bevy_color::linear_rgba::LinearRgba"
                 if !self.editable =>
             {
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .style(|sb: &mut StyleBuilder| {
                         sb.min_width(128).height(NODE_PROP_HEIGHT);
                     })
@@ -259,12 +259,12 @@ impl ViewTemplate for GraphNodePropertyEditLinearRgba {
             hsl: Hsla::default(),
         });
 
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .style(|sb: &mut StyleBuilder| {
                 sb.gap(4).justify_items(ui::JustifyItems::End);
             })
             .children((
-                Element::<NodeBundle>::new()
+                Element::<Node>::new()
                     .style(|sb: &mut StyleBuilder| {
                         sb.flex_grow(1.0).flex_basis(0);
                     })

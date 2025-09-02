@@ -28,7 +28,7 @@ fn style_terminal_hitbox(ss: &mut StyleBuilder) {
         .bottom(-3)
         .border_radius(8)
         .pointer_events(true)
-        .cursor(CursorIcon::Copy);
+        .cursor(SystemCursorIcon::Copy);
 }
 
 fn style_input_connector(ss: &mut StyleBuilder) {
@@ -65,20 +65,20 @@ impl ViewTemplate for InputTerminalDisplay {
         let id = self.id;
         let is_hover = cx.is_hovered(id);
         let color = self.color;
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .named("InputTerminal")
             .style(style_input_connector)
             .children((
-                Element::<NodeBundle>::for_entity(self.id)
+                Element::<Node>::for_entity(self.id)
                     .style((style_input_terminal, move |sb: &mut StyleBuilder| {
                         sb.background_color(color);
                     }))
                     .insert_dyn(terminal_event_handlers, (id, false))
                     .children((
-                        Element::<NodeBundle>::new().style(style_terminal_hitbox),
+                        Element::<Node>::new().style(style_terminal_hitbox),
                         Cond::new(
                             is_hover,
-                            Element::<NodeBundle>::new().style(style_terminal_outline),
+                            Element::<Node>::new().style(style_terminal_outline),
                             (),
                         ),
                     )),
@@ -124,20 +124,20 @@ impl ViewTemplate for OutputTerminalDisplay {
         let id = self.id;
         let is_hover = cx.is_hovered(id);
         let color = self.color;
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .named("OutputTerminal")
             .style(style_output_connector)
             .children((
-                Element::<NodeBundle>::for_entity(self.id)
+                Element::<Node>::for_entity(self.id)
                     .style((style_output_terminal, move |sb: &mut StyleBuilder| {
                         sb.background_color(color);
                     }))
                     .insert_dyn(terminal_event_handlers, (id, true))
                     .children((
-                        Element::<NodeBundle>::new().style(style_terminal_hitbox),
+                        Element::<Node>::new().style(style_terminal_hitbox),
                         Cond::new(
                             is_hover,
-                            Element::<NodeBundle>::new().style(style_terminal_outline),
+                            Element::<Node>::new().style(style_terminal_outline),
                             (),
                         ),
                     )),
@@ -166,7 +166,7 @@ impl ViewTemplate for NoTerminalDisplay {
     type View = impl View;
 
     fn create(&self, _cx: &mut Cx) -> Self::View {
-        Element::<NodeBundle>::new()
+        Element::<Node>::new()
             .named("NoTerminal")
             .style(style_no_connector)
             .children(self.control.clone())

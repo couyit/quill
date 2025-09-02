@@ -72,7 +72,7 @@ impl ViewTemplate for GraphDisplay {
         ScrollView::new()
             .entity(self.entity)
             .children(
-                Element::<MaterialNodeBundle<DotGridMaterial>>::new()
+                Element::<MaterialNode<DotGridMaterial>>::new()
                     .named("NodeGraph::Scroll")
                     .insert_dyn(
                         move |_| {

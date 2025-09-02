@@ -25,7 +25,7 @@ fn style_edge_hitbox(ss: &mut StyleBuilder) {
         .pointer_events(true)
         // .border(2)
         // .border_color(colors::Y_GREEN)
-        .cursor(CursorIcon::Grab);
+        .cursor(SystemCursorIcon::Grab);
 }
 
 /// Displays a stroked path between two nodes.
@@ -67,7 +67,7 @@ impl ViewTemplate for EdgeDisplay {
         let material_id = material.id();
 
         (
-            Element::<MaterialNodeBundle<DrawPathMaterial>>::for_entity(display_id)
+            Element::<MaterialNode<DrawPathMaterial>>::for_entity(display_id)
                 .named("NodeGraph::Edge")
                 .insert(material)
                 .style(style_edge)
@@ -130,7 +130,7 @@ impl ViewTemplate for EdgeDisplay {
             Cond::new(
                 self.edge_id.is_some(),
                 (
-                    Element::<NodeBundle>::new()
+                    Element::<Node>::new()
                         .insert_dyn(edge_event_handlers, (self.edge_id, display_id, false))
                         .style(style_edge_hitbox)
                         .style_dyn(
@@ -139,7 +139,7 @@ impl ViewTemplate for EdgeDisplay {
                             },
                             self.src_pos.as_vec2(),
                         ),
-                    Element::<NodeBundle>::new()
+                    Element::<Node>::new()
                         .insert_dyn(edge_event_handlers, (self.edge_id, display_id, true))
                         .style(style_edge_hitbox)
                         .style_dyn(

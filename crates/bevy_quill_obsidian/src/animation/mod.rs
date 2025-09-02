@@ -1,9 +1,10 @@
+use bevy::ecs::component::Mutable;
 use bevy::prelude::*;
 use bevy::{
     color::{Mix, Srgba},
     ecs::component::Component,
     math::{cubic_splines::CubicSegment, Vec2},
-    ui::{self, BackgroundColor, BorderColor, Style},
+    ui::{self, BackgroundColor, BorderColor},
 };
 
 /// Trait that represents a property that can be animated, such as background color,
@@ -13,7 +14,7 @@ pub trait AnimatableProperty {
     type ValueType: Copy + Send + Sync + PartialEq + 'static;
 
     /// The type of component that contains the animated property.
-    type ComponentType: Component;
+    type ComponentType: Component<Mutability = Mutable>;
 
     /// Get the current value of the animatable property.
     fn current(component: &Self::ComponentType) -> Self::ValueType;
@@ -61,7 +62,7 @@ impl AnimatableProperty for AnimatedBorderColor {
 pub struct AnimatedPxWidth;
 impl AnimatableProperty for AnimatedPxWidth {
     type ValueType = f32;
-    type ComponentType = Style;
+    type ComponentType = Node;
 
     fn current(component: &Self::ComponentType) -> Self::ValueType {
         if let ui::Val::Px(value) = component.width {
@@ -80,7 +81,7 @@ impl AnimatableProperty for AnimatedPxWidth {
 pub struct AnimatedPxHeight;
 impl AnimatableProperty for AnimatedPxHeight {
     type ValueType = f32;
-    type ComponentType = Style;
+    type ComponentType = Node;
 
     fn current(component: &Self::ComponentType) -> Self::ValueType {
         if let ui::Val::Px(value) = component.height {
@@ -161,7 +162,7 @@ where
     /// Create a new animated transition.
     pub fn new(origin: T::ValueType, target: T::ValueType, duration: f32, delay: f32) -> Self {
         Self {
-            timing: CubicSegment::new_bezier(Vec2::new(0.25, 0.1), Vec2::new(0.25, 1.0)),
+            timing: CubicSegment::new_bezier_easing(Vec2::new(0.25, 0.1), Vec2::new(0.25, 1.0)),
             origin,
             target,
             clock: 0.0,
@@ -195,7 +196,7 @@ where
 
     /// Set the easing curve of the effect.
     pub fn with_timing(&mut self, p1: Vec2, p2: Vec2) {
-        self.timing = CubicSegment::new_bezier(p1, p2);
+        self.timing = CubicSegment::new_bezier_easing(p1, p2);
     }
 
     /// Restart the transition with a new target value.
@@ -225,7 +226,7 @@ where
         time: Res<Time>,
     ) {
         for (entity, mut transition, mut cmp) in query.iter_mut() {
-            transition.advance(&mut cmp, time.delta_seconds());
+            transition.advance(&mut cmp, time.delta_secs());
             if transition.clock >= transition.delay + transition.duration {
                 commands.entity(entity).remove::<AnimatedTransition<T>>();
             }
