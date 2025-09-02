@@ -168,6 +168,22 @@ impl<H: LengthParam, V: LengthParam> UiRectParam for (H, V) {
     }
 }
 
+pub trait BorderColorParam {
+    fn to_border_color(self) -> ui::BorderColor;
+}
+
+impl BorderColorParam for ui::BorderColor {
+    fn to_border_color(self) -> ui::BorderColor {
+        self
+    }
+}
+
+impl BorderColorParam for Color {
+    fn to_border_color(self) -> ui::BorderColor {
+        ui::BorderColor::all(self)
+    }
+}
+
 /// Trait that represents border radius
 pub trait BorderRadiusParam {
     fn to_border_radius(self) -> ui::BorderRadius;

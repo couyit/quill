@@ -1,19 +1,15 @@
-use bevy::ui;
+use crate::BorderColorParam;
 
-use super::builder::{ColorParam, StyleBuilder};
+use super::builder::StyleBuilder;
 
 #[allow(missing_docs)]
 pub trait StyleBuilderBorderColor {
-    fn border_color(&mut self, color: impl ColorParam) -> &mut Self;
+    fn border_color(&mut self, color: impl BorderColorParam) -> &mut Self;
 }
 
 impl<'a, 'w> StyleBuilderBorderColor for StyleBuilder<'a, 'w> {
-    fn border_color(&mut self, color: impl ColorParam) -> &mut Self {
-        if let Some(color) = color.to_val() {
-            self.target.insert(ui::BorderColor(color));
-        } else {
-            self.target.remove::<ui::BorderColor>();
-        }
+    fn border_color(&mut self, color: impl BorderColorParam) -> &mut Self {
+        self.target.insert(color.to_border_color());
         self
     }
 }

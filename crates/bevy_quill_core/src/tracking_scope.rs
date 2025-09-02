@@ -153,7 +153,7 @@ impl TrackingScope {
 
     pub(crate) fn components_changed(&self, world: &World, tick: Tick) -> bool {
         self.component_deps.iter().any(|(e, c, exists)| {
-            world.get_entity(*e).map_or(false, |e| {
+            world.get_entity(*e).is_ok_and(|e| {
                 e.get_change_ticks_by_id(*c)
                     .map(|ct| ct.is_changed(self.tick, tick))
                     .unwrap_or(false)

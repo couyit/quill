@@ -176,9 +176,8 @@ impl<V: View> AnyViewAdapter for ViewAdapter<V> {
     fn nodes(&self, world: &mut World, entity: Entity, out: &mut Vec<Entity>) {
         if let Some(view_cell) = world.entity(entity).get::<ViewStateCell<V>>() {
             let vstate = view_cell.0.lock().unwrap();
-            match &vstate.state {
-                Some(state) => vstate.view.nodes(world, state, out),
-                None => {}
+            if let Some(state) = &vstate.state {
+                vstate.view.nodes(world, state, out)
             }
         }
     }
